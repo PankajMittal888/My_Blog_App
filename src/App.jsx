@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import service from './authservice/auth';
-import { login, logout } from './store/authslice';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import "./App.css";
+import authService from "./authservice/auth";
+import { login, logout } from "./store/authslice";
+import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -11,29 +11,27 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    service.getCurrentUser()
-      .then((userdata) => {
-        if (userdata) {
-          dispatch(login(userdata));
+    authService
+      .getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login({ userData }));
         } else {
           dispatch(logout());
         }
       })
-      .catch((error) => {
-        console.error("Failed to fetch user:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [dispatch]);
+      .finally(() => setLoading(false));
+  }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
-      <Header />
-      <main className="flex-grow px-4 py-6">
-        <Outlet />
-      </main>
-      <Footer />
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+      <div className="w-full block">
+        <Header />
+        <main>
+           <Outlet />
+        </main>
+        <Footer />
+      </div>
     </div>
   ) : null;
 }

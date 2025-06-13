@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+// import logo from '../assets/l'
 
-const Logo = ({width='100px'}) => {
+function Logo({width = '100px'}) {
   return (
-    <div>logo</div>
+    <div className='text-2xl'>🎯𝓑𝓵𝓸𝓰𝓼𝓲𝓽𝓮
+
+      {/* <img src="" alt="" /> */}
+    </div>
   )
 }
 
-export default Logo;
+export default Logo

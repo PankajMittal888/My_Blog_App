@@ -1,7 +1,8 @@
+
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import service from "../appwrite/config";
-import { Button, Container } from "../components/Index";
+import appwriteService from "../authservice/config";
+import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
@@ -16,7 +17,7 @@ export default function Post() {
 
     useEffect(() => {
         if (slug) {
-            service.getPost(slug).then((post) => {
+            appwriteService.getPost(slug).then((post) => {
                 if (post) setPost(post);
                 else navigate("/");
             });
@@ -24,43 +25,59 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = () => {
-        service.deletePost(post.$id).then((status) => {
+        appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
-                service.deleteFile(post.featuredImage);
+                appwriteService.deleteFile(post.featuredimage);
                 navigate("/");
             }
         });
     };
 
     return post ? (
-        <div className="py-8">
+        <div className="py-6 sm:py-8 bg-[#F2F0EF]">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+
+                {/* ✅ Responsive Image Container */}
+                <div className="w-[80vw] h-[50vh] sm:w-[60vw] sm:h-[50ch] mx-auto mb-4 sm:mb-6 relative border border-[#BBBDBC] rounded-xl p-2 sm:p-3">
                     <img
-                        src={service.getFilePreview(post.featuredImage)}
+                        src={appwriteService.getFileView(post.featuredimage)}
                         alt={post.title}
-                        className="rounded-xl"
+                        className="w-full h-full object-cover rounded-xl"
                     />
 
                     {isAuthor && (
-                        <div className="absolute right-6 top-6">
+                        <div className="absolute right-3 top-3 flex gap-2">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
+                                <Button
+                                    bgColor="bg-[#245F73]"
+                                    className="px-3 py-1.5 text-[#F2F0EF] text-sm hover:bg-[#733E24]"
+                                >
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
+                            <Button
+                                bgColor="bg-[#733E24]"
+                                className="px-3 py-1.5 text-[#F2F0EF] text-sm hover:bg-[#245F73]"
+                                onClick={deletePost}
+                            >
                                 Delete
                             </Button>
                         </div>
                     )}
                 </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
+
+                {/* ✅ Title */}
+                <div className="w-full max-w-[70vw] mx-auto mb-4 sm:mb-6">
+                    <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#245F73]">
+                        {post.title}
+                    </h1>
                 </div>
-                <div className="browser-css">
+
+                {/* ✅ Content */}
+                <div className="w-full max-w-[70vw] mx-auto text-[#245F73] text-sm sm:text-base leading-relaxed">
                     {parse(post.content)}
-                    </div>
+                </div>
+
             </Container>
         </div>
     ) : null;

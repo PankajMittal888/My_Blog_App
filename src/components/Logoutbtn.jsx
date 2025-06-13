@@ -1,19 +1,22 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import {logout} from '../store/authslice';
-import authService from '../authservice/auth';
-const Logoutbtn = () => {
-    const dispatch=useDispatch();
-    const loginSubmit= async ()=>{
-        await authService.logout().then(()=>{
+
+import React from 'react'
+import {useDispatch} from 'react-redux'
+import authService from '../authservice/auth'
+import {logout} from '../store/authslice'
+
+function LogoutBtn() {
+    const dispatch = useDispatch()
+    const logoutHandler = () => {
+        authService.logout().then(() => {
             dispatch(logout())
         })
     }
   return (
- <>
- <button className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full' onClick={loginSubmit}>Logout</button>
- </>
+    <button
+    className='inline-block px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-[#F2F0EF] bg-[#8a3c15] hover:bg-[#F2F0EF] hover:text-[#245F73] rounded-full transition-all duration-300 ease-in-out'
+    onClick={logoutHandler}
+    >Logout</button>
   )
 }
 
-export default Logoutbtn
+export default LogoutBtn;

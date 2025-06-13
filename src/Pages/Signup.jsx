@@ -1,9 +1,11 @@
+
 import React from 'react'
-import {Signin} from '../components/Index';
-const Signup = () => {
+import { Signin as SignupComponent} from '../components/index';
+
+function Signup() {
   return (
-    <div className='py-8'>
-        <Signin/>
+    <div className='py-6 sm:py-8 bg-[#F2F0EF] min-h-screen'>
+        <SignupComponent />
     </div>
   )
 }
