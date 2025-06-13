@@ -11,5 +11,5 @@ export { default as RTE } from "./RTE";
 export { default as Logo } from "./Logo";
 export { default as Login } from "./Login";
 export { default as Signin } from "./Signin";
-export { default as AuthLayout } from './Authlayout'; 
-export { default as PostForm } from './PostForm';
+export { default as AuthLayout } from "./Authlayout";
+export { default as PostForm } from "./PostForm";

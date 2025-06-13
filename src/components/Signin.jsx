@@ -1,9 +1,8 @@
-
 import React, { useState } from "react";
 import authService from "../authservice/auth.js";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authslice.jsx";
-import { Button, Input, Logo } from "./index.jsx";
+import { Button, Input, Logo } from "./Index.jsx";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -50,10 +49,15 @@ function Signup() {
         </p>
 
         {error && (
-          <p className="text-red-600 mt-4 text-center text-sm sm:text-base font-medium">{error}</p>
+          <p className="text-red-600 mt-4 text-center text-sm sm:text-base font-medium">
+            {error}
+          </p>
         )}
 
-        <form onSubmit={handleSubmit(create)} className="mt-4 sm:mt-6 space-y-4 sm:space-y-5">
+        <form
+          onSubmit={handleSubmit(create)}
+          className="mt-4 sm:mt-6 space-y-4 sm:space-y-5"
+        >
           <Input
             label="Full Name"
             placeholder="Enter your full name"
@@ -88,8 +92,8 @@ function Signup() {
             })}
           />
 
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             className="w-full px-4 py-2 bg-[#245F73] text-[#F2F0EF] text-sm sm:text-base font-medium rounded-lg hover:bg-[#733E24] transition-all duration-300"
           >
             Create Account
